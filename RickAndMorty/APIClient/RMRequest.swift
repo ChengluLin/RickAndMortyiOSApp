@@ -8,5 +8,11 @@
 import Foundation
 
 final class RMRequest {
+    // Base url
+    // Endpoint
+    // Path components
+    // Query parameters
+    // 
+    // https://rickandmortyapi.com/api/character/2
     
 }
