@@ -24,7 +24,7 @@ struct RMCharacterCollectionViewCellViewModel {
     }
     
     public var characterStatusText: String {
-        return characterStatus.rawValue
+        return "Status:\(characterStatus.text)"
     }
     
     public func fatchImage(completion: @escaping (Result<Data, Error>) -> Void) {
