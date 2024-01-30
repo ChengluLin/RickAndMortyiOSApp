@@ -73,7 +73,6 @@ final class RMCharacterListViewViewModel: NSObject {
             isLoadingMoreCharacters = false
             return
         }
-        print("Fatching more request", request.url?.absoluteString)
 
         RMService.shared.execute(request, expection: RMGetAllCharactersResponse.self) { [weak self] result in
             guard let strongSelf = self else {
@@ -81,10 +80,9 @@ final class RMCharacterListViewViewModel: NSObject {
             }
             switch result {
             case .success(let responseModel):
-                print("Pre-update:", strongSelf.cellViewModels.count)
                 let moreResults = responseModel.results
                 let info = responseModel.info
-//                strongSelf.apiInfo = info
+
                 if strongSelf.apiInfo?.next == info.next {
                     strongSelf.isLoadingMoreCharacters = false
                     return
@@ -99,14 +97,12 @@ final class RMCharacterListViewViewModel: NSObject {
                 let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newConunt)).compactMap({
                     return IndexPath(row: $0, section: 0)
                 })
-                print("IndexPathsToAdd:", indexPathsToAdd.count)
                 strongSelf.characters.append(contentsOf: moreResults)
-                print("Post-update:", strongSelf.cellViewModels.count)
 
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd )
-                    strongSelf.isLoadingMoreCharacters = false
                 }
+                strongSelf.isLoadingMoreCharacters = false
                 
             case .failure(let failure):
                 print(String(describing: failure))
@@ -196,8 +192,6 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
             let totaScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= ( totalContentHeight - totaScrollViewFixedHeight - 120) {
-                print("nnnextnextUrlString", url.absoluteString)
-
                 self?.fetchAdditionalCharacters(url: url)
             }
             timer.invalidate()
