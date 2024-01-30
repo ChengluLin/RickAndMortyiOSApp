@@ -11,6 +11,7 @@ import UIKit
 protocol RMCharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
     func didSelectCharacer(_ character: RMCharacter)
+    func didLoadMoreCharacters(with newIndexPath: [IndexPath])
 }
 
 /// View Model to handie character list view logic
@@ -22,13 +23,16 @@ final class RMCharacterListViewViewModel: NSObject {
     
     private var characters: [RMCharacter] = [] {
         didSet {
+            print("Creating viewModels")
             for character in characters {
                 let viewModel = RMCharacterCollectionViewCellViewModel(
                     characterName: character.name,
                     characterStatus: character.status,
                     characterImageUrl: URL(string: character.image)
                 )
-                cellViewModels.append(viewModel)
+                if !cellViewModels.contains(viewModel) {
+                    cellViewModels.append(viewModel)
+                }
             }
         }
     }
@@ -59,9 +63,47 @@ final class RMCharacterListViewViewModel: NSObject {
     }
     
     /// Paginate if additional characters are needed
-    public func fetchAdditionalCharacters() {
+    public func fetchAdditionalCharacters(url: URL) {
+        guard !isLoadingMoreCharacters else {
+            return
+        }
+        print("Fatching more data")
         isLoadingMoreCharacters = true
-        // Fatch characters
+        guard let request = RMRequest(url: url) else {
+            isLoadingMoreCharacters = false
+            return
+        }
+        RMService.shared.execute(request, expection: RMGetAllCharactersResponse.self) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            switch result {
+            case .success(let responseModel):
+                print("Pre-update:", strongSelf.cellViewModels.count)
+                let moreResults = responseModel.results
+                let info = responseModel.info
+                strongSelf.apiInfo = info
+                            
+                let originalCount = strongSelf.characters.count
+                let newConunt = moreResults.count
+                let total = originalCount + newConunt
+                let startingIndex = total - newConunt
+                let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newConunt)).compactMap({
+                    return IndexPath(row: $0, section: 0)
+                })
+                print("IndexPathsToAdd:", indexPathsToAdd.count)
+                strongSelf.characters.append(contentsOf: moreResults)
+                print("Post-update:", strongSelf.cellViewModels.count)
+
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd )
+                    strongSelf.isLoadingMoreCharacters = false
+                }
+            case .failure(let failure):
+                print(String(describing: failure))
+                self?.isLoadingMoreCharacters = false
+            }
+        }
     }
     
     public var shouldShowLoadMoreIndicator: Bool {
@@ -72,9 +114,9 @@ final class RMCharacterListViewViewModel: NSObject {
 //MARK: - CollectionView
 
 extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        <#code#>
-//    }
+    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    //        <#code#>
+    //    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellViewModels.count
@@ -93,12 +135,12 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionFooter,
               let footer = collectionView.dequeueReusableSupplementaryView(
-                  ofKind: kind,
-                  withReuseIdentifier: RMFooterLoadingCollectionReusableView.identfier,
-                  for: indexPath
+                ofKind: kind,
+                withReuseIdentifier: RMFooterLoadingCollectionReusableView.identfier,
+                for: indexPath
               ) as? RMFooterLoadingCollectionReusableView else {
-                  fatalError("Unsupported footer")
-              }
+            fatalError("Unsupported footer")
+        }
         footer.startAnimating()
         return footer
     }
@@ -132,23 +174,31 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 //MARK: -  ScrolView
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharacters else {
+        guard shouldShowLoadMoreIndicator,
+              !isLoadingMoreCharacters,
+              !cellViewModels.isEmpty,
+              let nextUrlString = apiInfo?.next,
+              let url = URL(string: nextUrlString) else {
             return
         }
-        let offset = scrollView.contentOffset.y
-        let totalContentHeight = scrollView.contentSize.height
-        let totaScrollViewFixedHeight = scrollView.frame.size.height
         
-        if offset >= ( totalContentHeight - totaScrollViewFixedHeight - 120) {
-            print("Should start fatching more")
-            fetchAdditionalCharacters()
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] timer in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totaScrollViewFixedHeight = scrollView.frame.size.height
+            
+            if offset >= ( totalContentHeight - totaScrollViewFixedHeight - 120) {
+                self?.fetchAdditionalCharacters(url: url)
+            }
+            timer.invalidate()
         }
-//        let xxxx = totalContentHeight - totaScrollViewFixedHeight
         
-//        print("Offset:", offset)
-//        print("xxx", xxxx)
-//        print("totalContentHeight:", totalContentHeight)
-//        print("totaScrollViewFixedHeight:", totaScrollViewFixedHeight)
-
+        //        let xxxx = totalContentHeight - totaScrollViewFixedHeight
+        
+        //        print("Offset:", offset)
+        //        print("xxx", xxxx)
+        //        print("totalContentHeight:", totalContentHeight)
+        //        print("totaScrollViewFixedHeight:", totaScrollViewFixedHeight)
+        
     }
 }
