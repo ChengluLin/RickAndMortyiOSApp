@@ -67,12 +67,14 @@ final class RMCharacterListViewViewModel: NSObject {
         guard !isLoadingMoreCharacters else {
             return
         }
-        print("Fatching more data")
+        print("Fatching more data", url)
         isLoadingMoreCharacters = true
         guard let request = RMRequest(url: url) else {
             isLoadingMoreCharacters = false
             return
         }
+        print("Fatching more request", request.url?.absoluteString)
+
         RMService.shared.execute(request, expection: RMGetAllCharactersResponse.self) { [weak self] result in
             guard let strongSelf = self else {
                 return
@@ -82,7 +84,13 @@ final class RMCharacterListViewViewModel: NSObject {
                 print("Pre-update:", strongSelf.cellViewModels.count)
                 let moreResults = responseModel.results
                 let info = responseModel.info
-                strongSelf.apiInfo = info
+//                strongSelf.apiInfo = info
+                if strongSelf.apiInfo?.next == info.next {
+                    strongSelf.isLoadingMoreCharacters = false
+                    return
+                } else {
+                    strongSelf.apiInfo = info
+                }
                             
                 let originalCount = strongSelf.characters.count
                 let newConunt = moreResults.count
@@ -99,6 +107,7 @@ final class RMCharacterListViewViewModel: NSObject {
                     strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd )
                     strongSelf.isLoadingMoreCharacters = false
                 }
+                
             case .failure(let failure):
                 print(String(describing: failure))
                 self?.isLoadingMoreCharacters = false
@@ -181,13 +190,14 @@ extension RMCharacterListViewViewModel: UIScrollViewDelegate {
               let url = URL(string: nextUrlString) else {
             return
         }
-        
-        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] timer in
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] timer in
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totaScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= ( totalContentHeight - totaScrollViewFixedHeight - 120) {
+                print("nnnextnextUrlString", url.absoluteString)
+
                 self?.fetchAdditionalCharacters(url: url)
             }
             timer.invalidate()
