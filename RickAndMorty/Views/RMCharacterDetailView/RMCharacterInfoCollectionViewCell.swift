@@ -12,6 +12,7 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private let valueLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 22, weight: .light)
         return label
@@ -72,8 +73,8 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
 
             valueLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
             valueLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
-            valueLabel.heightAnchor.constraint(equalToConstant: 30)
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
         ])
         
     }

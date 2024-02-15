@@ -13,13 +13,36 @@ final class RMCharacterInfoCollectionViewCellViewModel {
     private let type: `Type`
     private let value: String
     
+    static let dateFormatter: DateFormatter = {
+        // Format
+        // 2017-11-04T18:50:21.651Z
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSZ"
+        formatter.timeZone = .current
+        return formatter
+    }()
+    
+    static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     public var title: String {
         type.displayTitle
     }
     
     public var displayValue: String {
         if value.isEmpty { return "None"}
-       return value
+        
+        if let date = Self.dateFormatter.date(from: value),
+           type == .created {
+            print(date)
+            return Self.shortDateFormatter.string(from: date)
+        }
+        return value
     }
     
     public var iconImage: UIImage? {
@@ -30,7 +53,7 @@ final class RMCharacterInfoCollectionViewCellViewModel {
         return type.tintColor
     }
     
-    enum `Type` {
+    enum `Type`: String {
         case status
         case gender
         case type
@@ -84,22 +107,17 @@ final class RMCharacterInfoCollectionViewCellViewModel {
         
         var displayTitle: String {
             switch self {
-            case .status:
-                return "Someting"
-            case .gender:
-                return "Someting"
-            case .type:
-                return "Someting"
-            case .species:
-                return "Someting"
-            case .origin:
-                return "Someting"
-            case .created:
-                return "Someting"
-            case .location:
-                return "Someting"
+            case .status,
+                    .gender,
+                    .type,
+                    .species,
+                    .origin,
+                    .created,
+                    .location:
+                return rawValue.uppercased()
             case .episodeCount:
-                return "Someting"
+                return "EPISODE COUNT"
+                
             }
         }
     }
