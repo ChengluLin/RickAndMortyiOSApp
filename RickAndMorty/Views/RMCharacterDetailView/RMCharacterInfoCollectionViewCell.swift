@@ -14,6 +14,7 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Earth"
+        label.font = .systemFont(ofSize: 22, weight: .light)
         return label
     }()
     
@@ -29,6 +30,7 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     private let iconImageView: UIImageView = {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.contentMode = .scaleAspectFit
         icon.image = UIImage(systemName: "globe.americas")
         return icon
     }()
@@ -44,6 +46,7 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = .tertiarySystemBackground
         contentView.layer.cornerRadius = 8
+        contentView.layer.masksToBounds = true
         contentView.addSubviews(titleContainerView, valueLabel, iconImageView)
         titleContainerView.addSubview(titleLabel)
         setUpConstraints()
@@ -65,20 +68,17 @@ class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
             titleLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
             
-            iconImageView.heightAnchor.constraint(equalToConstant: 70),
-            iconImageView.widthAnchor.constraint(equalToConstant: 70),
-            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            iconImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 20),
-            iconImageView.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor, constant: -10),
+            iconImageView.heightAnchor.constraint(equalToConstant: 30),
+            iconImageView.widthAnchor.constraint(equalToConstant: 30),
+            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
+            iconImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20),
 
-            valueLabel.leftAnchor.constraint(equalTo: titleContainerView.leftAnchor),
-            valueLabel.rightAnchor.constraint(equalTo: titleContainerView.rightAnchor),
-            valueLabel.topAnchor.constraint(equalTo: titleContainerView.topAnchor),
-            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.bottomAnchor),
-
-
-            
+            valueLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
+            valueLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
+            valueLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
+        
     }
     
     override func prepareForReuse() {
