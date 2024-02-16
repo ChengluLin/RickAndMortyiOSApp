@@ -44,7 +44,7 @@ final class RMCharacterListViewViewModel: NSObject {
     public func fetchCharacters() {
         RMService.shared.execute(
             .listCharactersRequests,
-            expection: RMGetAllCharactersResponse.self
+            expecting: RMGetAllCharactersResponse.self
         ) { [weak self] result in
             switch result {
             case .success(let responseModel):
@@ -73,7 +73,7 @@ final class RMCharacterListViewViewModel: NSObject {
             return
         }
 
-        RMService.shared.execute(request, expection: RMGetAllCharactersResponse.self) { [weak self] result in
+        RMService.shared.execute(request, expecting: RMGetAllCharactersResponse.self) { [weak self] result in
             guard let strongSelf = self else {
                 return
             }

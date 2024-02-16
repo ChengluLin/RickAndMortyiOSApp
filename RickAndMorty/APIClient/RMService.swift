@@ -27,7 +27,7 @@ final class RMService {
     ///   - completion: CallBack with data or error
     public func execute<T: Codable>(
         _ request: RMRequest,
-        expection type: T.Type,
+        expecting type: T.Type,
         completion: @escaping (Result<T, Error>) -> Void) {
             guard let urlRequest = self.request(from: request) else {
                 completion(.failure(RMServiceError.failedToCreateRequest))
