@@ -13,6 +13,8 @@ final class RMService {
     /// shared singleton instance
     static let shared = RMService()
     
+    private let cacheManager = RMAPICacheManager()
+    
     private init() {}
     
     enum RMServiceError: Error {

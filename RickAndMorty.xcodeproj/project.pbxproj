@@ -44,6 +44,7 @@
 		BD07EB212B71536500545202 /* RMCharacterInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD07EB202B71536500545202 /* RMCharacterInfoCollectionViewCellViewModel.swift */; };
 		BD07EB232B71537C00545202 /* RMCharacterEpisodeCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD07EB222B71537C00545202 /* RMCharacterEpisodeCollectionViewCellViewModel.swift */; };
 		BD07EB252B7F94D000545202 /* RMEpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD07EB242B7F94D000545202 /* RMEpisodeDetailViewController.swift */; };
+		BD75EB242B82527B00FEEA80 /* RMAPICacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB232B82527B00FEEA80 /* RMAPICacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		BD07EB202B71536500545202 /* RMCharacterInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		BD07EB222B71537C00545202 /* RMCharacterEpisodeCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterEpisodeCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		BD07EB242B7F94D000545202 /* RMEpisodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailViewController.swift; sourceTree = "<group>"; };
+		BD75EB232B82527B00FEEA80 /* RMAPICacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMAPICacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				BD07EB132B68DB0400545202 /* RMImageLoader.swift */,
+				BD75EB232B82527B00FEEA80 /* RMAPICacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				BD07EB012B58DEB300545202 /* RMCharacterListViewViewModel.swift in Sources */,
 				BD07EB1C2B7152E500545202 /* RMCharacterEpisodeCollectionViewCell.swift in Sources */,
 				BD0213DC2B4FFED500BD6270 /* RMCharacterViewController.swift in Sources */,
+				BD75EB242B82527B00FEEA80 /* RMAPICacheManager.swift in Sources */,
 				BD07EB0E2B60BB1300545202 /* RMCharacterDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
