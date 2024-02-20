@@ -49,6 +49,7 @@
 		BD75EB282B82706E00FEEA80 /* RMEpisodeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB272B82706E00FEEA80 /* RMEpisodeDetailView.swift */; };
 		BD75EB2B2B844BCE00FEEA80 /* RMEpisodeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB2A2B844BCE00FEEA80 /* RMEpisodeListView.swift */; };
 		BD75EB2D2B844FD900FEEA80 /* RMEpisodeListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB2C2B844FD900FEEA80 /* RMEpisodeListViewViewModel.swift */; };
+		BD75EB2F2B8454ED00FEEA80 /* RMGetAllEpisodesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB2E2B8454ED00FEEA80 /* RMGetAllEpisodesResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		BD75EB272B82706E00FEEA80 /* RMEpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailView.swift; sourceTree = "<group>"; };
 		BD75EB2A2B844BCE00FEEA80 /* RMEpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeListView.swift; sourceTree = "<group>"; };
 		BD75EB2C2B844FD900FEEA80 /* RMEpisodeListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeListViewViewModel.swift; sourceTree = "<group>"; };
+		BD75EB2E2B8454ED00FEEA80 /* RMGetAllEpisodesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMGetAllEpisodesResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				BD07EAFE2B58D6DB00545202 /* RMGetAllCharactersResponse.swift */,
+				BD75EB2E2B8454ED00FEEA80 /* RMGetAllEpisodesResponse.swift */,
 			);
 			name = APIResponseTypes;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				BD07EB1C2B7152E500545202 /* RMCharacterEpisodeCollectionViewCell.swift in Sources */,
 				BD75EB2D2B844FD900FEEA80 /* RMEpisodeListViewViewModel.swift in Sources */,
 				BD0213DC2B4FFED500BD6270 /* RMCharacterViewController.swift in Sources */,
+				BD75EB2F2B8454ED00FEEA80 /* RMGetAllEpisodesResponse.swift in Sources */,
 				BD75EB242B82527B00FEEA80 /* RMAPICacheManager.swift in Sources */,
 				BD07EB0E2B60BB1300545202 /* RMCharacterDetailView.swift in Sources */,
 			);
