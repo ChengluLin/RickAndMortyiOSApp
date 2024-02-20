@@ -47,6 +47,7 @@
 		BD75EB242B82527B00FEEA80 /* RMAPICacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB232B82527B00FEEA80 /* RMAPICacheManager.swift */; };
 		BD75EB262B826FF700FEEA80 /* RMEpisodeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB252B826FF700FEEA80 /* RMEpisodeDetailViewModel.swift */; };
 		BD75EB282B82706E00FEEA80 /* RMEpisodeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB272B82706E00FEEA80 /* RMEpisodeDetailView.swift */; };
+		BD75EB2B2B844BCE00FEEA80 /* RMEpisodeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD75EB2A2B844BCE00FEEA80 /* RMEpisodeListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		BD75EB232B82527B00FEEA80 /* RMAPICacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMAPICacheManager.swift; sourceTree = "<group>"; };
 		BD75EB252B826FF700FEEA80 /* RMEpisodeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailViewModel.swift; sourceTree = "<group>"; };
 		BD75EB272B82706E00FEEA80 /* RMEpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeDetailView.swift; sourceTree = "<group>"; };
+		BD75EB2A2B844BCE00FEEA80 /* RMEpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 		BD0213CD2B4FFD0700BD6270 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BD75EB292B844BA500FEEA80 /* Episode */,
 				BD07EB152B71523E00545202 /* RMCharacterDetailView */,
 				BD07EB162B71526B00545202 /* Character */,
 				BD07EB112B61F95600545202 /* RMFooterLoadingCollectionReusableView.swift */,
@@ -281,6 +284,14 @@
 			path = CharacterDetail;
 			sourceTree = "<group>";
 		};
+		BD75EB292B844BA500FEEA80 /* Episode */ = {
+			isa = PBXGroup;
+			children = (
+				BD75EB2A2B844BCE00FEEA80 /* RMEpisodeListView.swift */,
+			);
+			path = Episode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -360,6 +371,7 @@
 				BD07EAFF2B58D6DB00545202 /* RMGetAllCharactersResponse.swift in Sources */,
 				BD0213F02B56400900BD6270 /* RMCharacterGender.swift in Sources */,
 				BD0213BD2B4FFA4000BD6270 /* RMTabBarController.swift in Sources */,
+				BD75EB2B2B844BCE00FEEA80 /* RMEpisodeListView.swift in Sources */,
 				BD07EB0C2B60BA8E00545202 /* RMCharacterDetailViewController.swift in Sources */,
 				BD07EB122B61F95600545202 /* RMFooterLoadingCollectionReusableView.swift in Sources */,
 				BD0213EA2B563FC200BD6270 /* RMSingleLocation.swift in Sources */,

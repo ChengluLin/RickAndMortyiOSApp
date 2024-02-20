@@ -1,10 +1,9 @@
 //
-//  CharacterListView.swift
+//  RMEpisodeListView.swift
 //  RickAndMorty
 //
-//  Created by ChengLu on 2024/1/18.
+//  Created by ChengLu on 2024/2/20.
 //
-
 import UIKit
 
 protocol RMCharacterListViewDelegate: AnyObject {
@@ -13,7 +12,8 @@ protocol RMCharacterListViewDelegate: AnyObject {
         didSelectCharacter character: RMCharacter)
 }
 
-final class RMCharacterListView: UIView {
+/// View that handles showing list of episodes , loader, etc.
+final class RMEpisodeListView: UIView {
     
     public weak var delegate: RMCharacterListViewDelegate?
     
