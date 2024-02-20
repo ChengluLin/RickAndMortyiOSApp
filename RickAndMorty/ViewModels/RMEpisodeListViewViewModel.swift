@@ -9,7 +9,7 @@ import UIKit
 
 protocol RMEpisodeListViewViewModelDelegate: AnyObject {
     func didLoadInitialEpisodes()
-    func didSelectEpisode(_ character: RMEpisode)
+    func didSelectEpisode(_ episode: RMEpisode)
     func didLoadMoreEpisodes(with newIndexPath: [IndexPath])
 }
 
