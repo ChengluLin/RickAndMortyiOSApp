@@ -6,18 +6,18 @@
 //
 import UIKit
 
-protocol RMCharacterListViewDelegate: AnyObject {
-    func rmCharacterListView(
-        _ characterListView: RMCharacterListView,
-        didSelectCharacter character: RMCharacter)
+protocol RMEpisodeListViewDelegate: AnyObject {
+    func rmEpisodeListView(
+        _ characterListView: RMEpisodeListView,
+        didSelectEpisode episode: RMEpisode)
 }
 
 /// View that handles showing list of episodes , loader, etc.
 final class RMEpisodeListView: UIView {
     
-    public weak var delegate: RMCharacterListViewDelegate?
+    public weak var delegate: RMEpisodeListViewDelegate?
     
-    private let viewModel = RMCharacterListViewViewModel()
+    private let viewModel = RMEpisodeListViewViewModel()
     
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -77,7 +77,7 @@ final class RMEpisodeListView: UIView {
     }
 }
 
-extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
+extension RMEpisodeListView: RMEpisodeListViewViewModelDelegate {
 
     
     func didSelectCharacer(_ character: RMCharacter) {
