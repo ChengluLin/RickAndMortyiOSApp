@@ -20,10 +20,25 @@ final class RMEpisodeListViewViewModel: NSObject {
     
     private var isLoadingMoreCharacters = false
     
+    private let borderColors: [UIColor] = [
+        .systemRed,
+        .systemBlue,
+        .systemYellow,
+        .systemOrange,
+        .systemPink,
+        .systemPurple,
+        .systemCyan,
+        .systemMint,
+        .systemIndigo
+    ]
+    
     private var episodes: [RMEpisode] = [] {
         didSet {
             for episode in episodes {
-                let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: episode.url))
+                let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(
+                    episodeDataUrl: URL(string: episode.url),
+                    borderColor: borderColors.randomElement() ?? .systemBlue
+                )
                 if !cellViewModels.contains(viewModel) {
                     cellViewModels.append(viewModel)
                 }
@@ -67,7 +82,7 @@ final class RMEpisodeListViewViewModel: NSObject {
             isLoadingMoreCharacters = false
             return
         }
-
+        
         RMService.shared.execute(request, expecting: RMGetAllEpisodesResponse.self) { [weak self] result in
             guard let strongSelf = self else {
                 return
@@ -76,14 +91,14 @@ final class RMEpisodeListViewViewModel: NSObject {
             case .success(let responseModel):
                 let moreResults = responseModel.results
                 let info = responseModel.info
-
+                
                 if strongSelf.apiInfo?.next == info.next {
                     strongSelf.isLoadingMoreCharacters = false
                     return
                 } else {
                     strongSelf.apiInfo = info
                 }
-                            
+                
                 let originalCount = strongSelf.episodes.count
                 let newConunt = moreResults.count
                 let total = originalCount + newConunt
@@ -92,7 +107,7 @@ final class RMEpisodeListViewViewModel: NSObject {
                     return IndexPath(row: $0, section: 0)
                 })
                 strongSelf.episodes.append(contentsOf: moreResults)
-
+                
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreEpisodes(with: indexPathsToAdd )
                 }
@@ -156,8 +171,8 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
-        let width = (bounds.width-30)/2
-        return CGSize(width: width, height: width * 0.8)
+        let width = bounds.width-20
+        return CGSize(width: width, height: 100)
         
     }
     
