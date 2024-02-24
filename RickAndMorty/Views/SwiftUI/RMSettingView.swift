@@ -32,11 +32,16 @@ struct RMSettingView: View {
                     .padding(.leading, 10)
             }
             .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+            .onTapGesture {
+                viewModel.onTapHandler(viewModel.type)
+            }
         }
     }
 }
 
 #Preview {
-    RMSettingView(viewModel: .init(cellViewModels: RMSettingsOption.allCases.compactMap({return RMSettingsCellViewModel(type: $0)
+    RMSettingView(viewModel: .init(cellViewModels: RMSettingsOption.allCases.compactMap({return RMSettingsCellViewModel(type: $0) { option in
+        
+    }
     })))
 }

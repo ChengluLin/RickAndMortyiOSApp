@@ -11,15 +11,7 @@ import SwiftUI
 /// Controllerto show various app options and settings
 final class RMSettingViewController: UIViewController {
     
-    private let settingsSwiftUIController = UIHostingController(
-        rootView: RMSettingView(
-            viewModel: RMSettingsViewViewModel(
-                cellViewModels: RMSettingsOption.allCases.compactMap({
-                    return RMSettingsCellViewModel(type: $0)
-                })
-            )
-        )
-    )
+    private var settingsSwiftUIController: UIHostingController<RMSettingView>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +22,18 @@ final class RMSettingViewController: UIViewController {
     }
     
     private func addSwiftUIController() {
+        let settingsSwiftUIController = UIHostingController(
+            rootView: RMSettingView(
+                viewModel: RMSettingsViewViewModel(
+                    cellViewModels: RMSettingsOption.allCases.compactMap({
+                        return RMSettingsCellViewModel(type: $0) { option in
+                            print(option.displayTitle)
+                            
+                        }
+                    })
+                )
+            )
+        )
         addChild(settingsSwiftUIController)
         settingsSwiftUIController.didMove(toParent: self)
         
@@ -43,6 +47,8 @@ final class RMSettingViewController: UIViewController {
             settingsSwiftUIController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
         ])
+        
+        self.settingsSwiftUIController = settingsSwiftUIController
     }
     
 }
