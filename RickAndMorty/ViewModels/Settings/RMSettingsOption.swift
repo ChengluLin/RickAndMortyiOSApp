@@ -16,6 +16,26 @@ enum RMSettingsOption: CaseIterable {
     case viewSeries
     case viewCode
     
+    var taswitch self {
+    case .rateApp:
+        return nil
+    case .contactUs:
+        return URL(string: "https://iosacademy.io")
+    case .terms:
+        return URL(string: "https://iosacademyu.io/terms")
+    case .privacy:
+        return "API Reference"
+    case .apiReference:
+        return "API Reference"
+    case .viewSeries:
+        return "View Video Series"
+    case .viewCode:
+        return "View App Code"
+
+    }rgetUrl: URL? {
+        
+    }
+    
     var displayTitle: String {
         switch self {
         case .rateApp:
