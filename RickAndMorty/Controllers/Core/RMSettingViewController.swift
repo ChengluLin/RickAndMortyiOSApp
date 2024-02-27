@@ -5,6 +5,7 @@
 //  Created by ChengLu on 2024/1/11.
 //
 
+import StoreKit
 import SafariServices
 import UIKit
 import SwiftUI
@@ -13,7 +14,7 @@ import SwiftUI
 final class RMSettingViewController: UIViewController {
     
     private var settingsSwiftUIController: UIHostingController<RMSettingView>?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,6 +64,9 @@ final class RMSettingViewController: UIViewController {
             present(vc, animated: true)
         } else if option == .rateApp {
             // Show rating prompt
+            if let windowScene = view.window?.windowScene {
+                SKStoreReviewController.requestReview(in: windowScene)
+            }
         }
         
 
