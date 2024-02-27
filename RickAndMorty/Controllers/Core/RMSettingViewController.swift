@@ -5,6 +5,7 @@
 //  Created by ChengLu on 2024/1/11.
 //
 
+import SafariServices
 import UIKit
 import SwiftUI
 
@@ -56,21 +57,14 @@ final class RMSettingViewController: UIViewController {
             return
         }
         
-        switch option {
-        case .rateApp:
-            // Show prompt
-        case .contactUs:
-            <#code#>
-        case .terms:
-            <#code#>
-        case .privacy:
-            <#code#>
-        case .apiReference:
-            <#code#>
-        case .viewSeries:
-            <#code#>
-        case .viewCode:
-            <#code#>
+        if let url = option.targetUrl {
+            // Open websit
+            let vc = SFSafariViewController(url: url)
+            present(vc, animated: true)
+        } else if option == .rateApp {
+            // Show rating prompt
         }
+        
+
     }
 }

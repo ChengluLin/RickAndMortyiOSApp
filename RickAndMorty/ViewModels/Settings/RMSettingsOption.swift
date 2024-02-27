@@ -16,24 +16,24 @@ enum RMSettingsOption: CaseIterable {
     case viewSeries
     case viewCode
     
-    var taswitch self {
-    case .rateApp:
-        return nil
-    case .contactUs:
-        return URL(string: "https://iosacademy.io")
-    case .terms:
-        return URL(string: "https://iosacademyu.io/terms")
-    case .privacy:
-        return "API Reference"
-    case .apiReference:
-        return "API Reference"
-    case .viewSeries:
-        return "View Video Series"
-    case .viewCode:
-        return "View App Code"
+    var targetUrl: URL? {
+        switch self {
+        case .rateApp:
+            return nil
+        case .contactUs:
+            return URL(string: "https://iosacademy.io")
+        case .terms:
+            return URL(string: "https://iosacadey.io/terms")
+        case .privacy:
+            return URL(string: "https://iosacadey.io/privacy")
+        case .apiReference:
+            return URL(string: "https://rickandmortyapi.com/")
+        case .viewSeries:
+            return URL(string: "https://rickandmortyapi.com/")
+        case .viewCode:
+            return URL(string: "https://github.com/ChengluLin/RickAndMortyiOSApp")
 
-    }rgetUrl: URL? {
-        
+        }
     }
     
     var displayTitle: String {
@@ -45,14 +45,14 @@ enum RMSettingsOption: CaseIterable {
         case .terms:
             return "Terms of Service"
         case .privacy:
-            return "API Reference"
+            return "Privacy Policy"
         case .apiReference:
             return "API Reference"
         case .viewSeries:
             return "View Video Series"
         case .viewCode:
             return "View App Code"
-
+            
         }
     }
     
