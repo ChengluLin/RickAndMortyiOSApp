@@ -68,7 +68,5 @@ final class RMSettingViewController: UIViewController {
                 SKStoreReviewController.requestReview(in: windowScene)
             }
         }
-        
-
     }
 }
