@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol RMLocationViewDelegate: AnyObject {
+    func rmLocationView(_ locationView: RMLocationView, didSelect loaction: RMLocation)
+}
 
 class RMLocationView: UIView {
+    
+    public weak var delegate: RMLocationViewDelegate?
     
     private var viewModel: RMLocationViewViewModel? {
         didSet {
@@ -78,6 +83,20 @@ class RMLocationView: UIView {
 }
 
 extension RMLocationView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let cellViewModels = viewModel?.cellViewModels else {
+            fatalError()
+        }
+        guard let locationModel = viewModel?.location(at: indexPath.row) else {
+            return
+        }
+        
+        delegate?.rmLocationView(self, didSelect: locationModel)
+    }
+
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -98,8 +117,4 @@ extension RMLocationView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        // Notify controller of selection
-    }
 }
