@@ -305,11 +305,11 @@
 		BD07EB0A2B60BA6F00545202 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				BD61BE412B9B1D1A00176A40 /* Search */,
 				BD07EB0B2B60BA8E00545202 /* RMCharacterDetailViewController.swift */,
 				BD07EB242B7F94D000545202 /* RMEpisodeDetailViewController.swift */,
-				BD75EB302B84CBBE00FEEA80 /* RMSearchViewController.swift */,
 				BD61BE282B949DDB00176A40 /* RMLocationDetailViewController.swift */,
-				BD61BE3D2B9AF21A00176A40 /* RMSearchOptionPickerViewController.swift */,
+				BD61BE402B9B1D1500176A40 /* New Group */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -406,6 +406,22 @@
 				BD61BE322B95ADC600176A40 /* RMSearchViewViewModel.swift */,
 				BD61BE372B95B2BA00176A40 /* RMNoSearchResultsViewViewModel.swift */,
 				BD61BE3B2B95B3F500176A40 /* RMSearchInputViewViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		BD61BE402B9B1D1500176A40 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		BD61BE412B9B1D1A00176A40 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BD75EB302B84CBBE00FEEA80 /* RMSearchViewController.swift */,
+				BD61BE3D2B9AF21A00176A40 /* RMSearchOptionPickerViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
