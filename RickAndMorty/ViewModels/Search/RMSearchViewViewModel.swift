@@ -16,7 +16,18 @@ final class RMSearchViewViewModel {
     
     let config: RMSearchViewController.Config
     
+    private var optionMap: [RMSearchInputViewViewModel.DynamicOption: String] = [:]
+    
+    //MARK: - Init
+    
     init(config: RMSearchViewController.Config) {
         self.config = config
+        
+    }
+    
+    //MARK: - Public
+    
+    public func set(value: String, for option: RMSearchInputViewViewModel.DynamicOption) {
+        optionMap[option] = value
     }
 }
