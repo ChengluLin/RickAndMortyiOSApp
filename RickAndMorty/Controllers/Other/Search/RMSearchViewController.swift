@@ -78,7 +78,7 @@ class RMSearchViewController: UIViewController {
     }
     
     @objc private func didTapExecuteSearch() {
-//        viewModel.executeSearch()
+        viewModel.executeSearch()
     }
     
     private func addConstraints() {
@@ -87,8 +87,6 @@ class RMSearchViewController: UIViewController {
             searchView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             searchView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-
-            
         ])
     }
 
