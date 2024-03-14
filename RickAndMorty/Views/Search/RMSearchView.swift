@@ -42,6 +42,7 @@ final class RMSearchView: UIView {
         }
         
         viewModel.registerSearchResultHandler { results in
+            // show cell and item
             print(results)
         }
     }
@@ -51,6 +52,7 @@ final class RMSearchView: UIView {
     }
     
     private func addConstraints() {
+        
         NSLayoutConstraint.activate([
             // Search input view
             SearchInputView.topAnchor.constraint(equalTo: topAnchor),
@@ -94,6 +96,7 @@ extension RMSearchView: UICollectionViewDelegate, UICollectionViewDataSource {
 //MARK: - RMSearchInputViewDelegate
 
 extension RMSearchView: RMSearchInputViewDelegate {
+    
     func rmSearchInputView(_ inputView: RMSearchInputView, didSelectOption option: RMSearchInputViewViewModel.DynamicOption) {
         delegate?.rmSearchView(self, didSelectOption: option)
     }
