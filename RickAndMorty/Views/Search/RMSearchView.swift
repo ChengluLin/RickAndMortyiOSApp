@@ -24,19 +24,28 @@ final class RMSearchView: UIView {
     
     private let noResultsView = RMNoSearchResultsView()
     
-    // Results collectionView 
+    private let resultsView = RMSearchResultsView()
+    // Results collectionView
     
     init(frame: CGRect, viewModel: RMSearchViewViewModel) {
         self.viewModel = viewModel
         super .init(frame: frame)
         backgroundColor = .systemBackground
         translatesAutoresizingMaskIntoConstraints = false
-        addSubviews(noResultsView, SearchInputView)
+        addSubviews(resultsView, noResultsView, SearchInputView)
         addConstraints()
         
         SearchInputView.configure(with: RMSearchInputViewViewModel(type: viewModel.config.type))
         SearchInputView.delegate = self
         
+        setUpHandlers()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    private func setUpHandlers() {
         viewModel.registerOptionChangeBlock { tuple in
             self.SearchInputView.update(option: tuple.0, value: tuple.1)
         }
@@ -45,10 +54,10 @@ final class RMSearchView: UIView {
             // show cell and item
             print(results)
         }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
+        
+        viewModel.registerNoResultHandler {
+            <#code#>
+        }
     }
     
     private func addConstraints() {
@@ -59,6 +68,11 @@ final class RMSearchView: UIView {
             SearchInputView.leftAnchor.constraint(equalTo: leftAnchor),
             SearchInputView.rightAnchor.constraint(equalTo: rightAnchor),
             SearchInputView.heightAnchor.constraint(equalToConstant: viewModel.config.type == .episode ? 55 : 110),
+            
+            resultsView.topAnchor.constraint(equalTo: SearchInputView.bottomAnchor),
+            resultsView.leftAnchor.constraint(equalTo: leftAnchor),
+            resultsView.rightAnchor.constraint(equalTo: rightAnchor),
+            resultsView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
             // No Results
             noResultsView.widthAnchor.constraint(equalToConstant: 150),
