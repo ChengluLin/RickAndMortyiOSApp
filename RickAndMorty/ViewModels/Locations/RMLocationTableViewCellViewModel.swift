@@ -9,8 +9,6 @@ import Foundation
 
 struct RMLocationTableViewCellViewModel: Hashable, Equatable {
 
-    
-    
     private let location: RMLocation
     
     init(location: RMLocation) {
@@ -38,8 +36,5 @@ struct RMLocationTableViewCellViewModel: Hashable, Equatable {
         hasher.combine(type)
         hasher.combine(dimension)
         hasher.combine(location.id)
-
-
-
     }
 }
