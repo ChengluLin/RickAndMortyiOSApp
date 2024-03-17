@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RMSearchResultsViewDelegate: AnyObject {
-    func reSearchResultsView(_ resultsView: RMSearchResultsView, didTapLocationAt location: Int)
+    func reSearchResultsView(_ resultsView: RMSearchResultsView, didTapLocationAt index: Int)
 }
 
 /// Shows search results UI (Table or Collection an need)
@@ -28,7 +28,6 @@ class RMSearchResultsView: UIView {
         tableView.register(RMLocationTableViewCell.self,
                            forCellReuseIdentifier: RMLocationTableViewCell.cellIdentifier)
         tableView.isHidden = true
-//        tableView.backgroundColor = .yellow
         return tableView
     }()
     
