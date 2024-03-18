@@ -47,6 +47,8 @@ class RMSearchResultsView: UIView {
     
     private var locationCellViewModels: [RMLocationTableViewCellViewModel] = []
     
+    private var collectionViewCellViewModels: [any Hashable] = []
+    
     //MARK: - Init
     
     override init(frame: CGRect) {
@@ -70,10 +72,13 @@ class RMSearchResultsView: UIView {
         
         switch viewModel {
         case .characters(let viewModels):
+            self.collectionViewCellViewModels = viewModels
             setUpcollectionView()
         case .locations(let viewModels):
             setUpTableView(viewModels: viewModels)
+            self.collectionViewCellViewModels = viewModels
         case .episodes(let viewModels):
+            self.collectionViewCellViewModels = viewModels
             setUpcollectionView()
         }
     }
@@ -81,7 +86,6 @@ class RMSearchResultsView: UIView {
     private func setUpcollectionView() {
         self.tabelView.isHidden = true
         self.collectionView.isHidden = false
-        collectionView.backgroundColor = .red
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.reloadData()
@@ -144,11 +148,28 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
 extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return self.collectionViewCellViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        fatalError()
+        let currentViewModel = collectionViewCellViewModels[indexPath.row]
+        if let characterVM = currentViewModel as? RMCharacterCollectionViewCellViewModel {
+            // Character cell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterCollectionViewCell.cellIdentifier, for: indexPath) as? RMCharacterCollectionViewCell else {
+                fatalError()
+            }
+            cell.configure(with: characterVM)
+            return cell
+        }
+        
+        // Episode
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RMCharacterEpisodeCollectionViewCell.cellIdentifer, for: indexPath) as? RMCharacterEpisodeCollectionViewCell else {
+            fatalError()
+        }
+        if let episodeVM = currentViewModel as? RMCharacterEpisodeCollectionViewCellViewModel {
+            cell.configure(with: episodeVM)
+        }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -156,8 +177,19 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let currentViewModel = collectionViewCellViewModels[indexPath.row]
+        let bounds = UIScreen.main.bounds
         
-        return .zero
+        if currentViewModel is RMCharacterCollectionViewCellViewModel {
+            // Character size
+            let width = (bounds.width-30)/2
+            return CGSize(width: width, height: width * 1.5)
+        }
+        
+        // Episode size
+        let width = bounds.width-20
+        return CGSize(width: width, height: 100)
+        
     }
     
 }
