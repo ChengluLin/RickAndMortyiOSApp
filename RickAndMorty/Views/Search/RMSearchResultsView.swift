@@ -31,6 +31,20 @@ class RMSearchResultsView: UIView {
         return tableView
     }()
     
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize // 自適應高度寬度
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isHidden = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(RMCharacterCollectionViewCell.self, forCellWithReuseIdentifier:  RMCharacterCollectionViewCell.cellIdentifier)
+        collectionView.register(RMCharacterEpisodeCollectionViewCell.self, forCellWithReuseIdentifier:  RMCharacterEpisodeCollectionViewCell.cellIdentifer)
+        collectionView.register(RMFooterLoadingCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identfier)
+        return collectionView
+    }()
+    
     private var locationCellViewModels: [RMLocationTableViewCellViewModel] = []
     
     //MARK: - Init
@@ -40,7 +54,7 @@ class RMSearchResultsView: UIView {
         isHidden = true
         translatesAutoresizingMaskIntoConstraints = false
         
-        addSubviews(tabelView)
+        addSubviews(tabelView, collectionView)
         
         addConstraints()
     }
@@ -65,11 +79,17 @@ class RMSearchResultsView: UIView {
     }
     
     private func setUpcollectionView() {
-        
+        self.tabelView.isHidden = true
+        self.collectionView.isHidden = false
+        collectionView.backgroundColor = .red
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.reloadData()
     }
     
     private func setUpTableView(viewModels: [RMLocationTableViewCellViewModel]) {
         tabelView.isHidden = false
+        collectionView.isHidden = true
         tabelView.delegate = self
         tabelView.dataSource = self
         self.locationCellViewModels = viewModels
@@ -82,6 +102,12 @@ class RMSearchResultsView: UIView {
             tabelView.leftAnchor.constraint(equalTo: leftAnchor),
             tabelView.rightAnchor.constraint(equalTo: rightAnchor),
             tabelView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
         ])
     }
     
@@ -112,3 +138,27 @@ extension RMSearchResultsView: UITableViewDataSource, UITableViewDelegate {
         self.delegate?.reSearchResultsView(self, didTapLocationAt: indexPath.row)
     }
 }
+
+//MARK: - CollectionViewDelegate
+
+extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        fatalError()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return .zero
+    }
+    
+}
+
