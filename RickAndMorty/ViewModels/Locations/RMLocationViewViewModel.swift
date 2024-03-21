@@ -84,7 +84,6 @@ final class RMLocationViewViewModel {
                 } else {
                     strongSelf.apiInfo = info
                 }
-                
                 strongSelf.cellViewModels.append(contentsOf: moreResults.compactMap({
                     return RMLocationTableViewCellViewModel(location: $0)
                 }))
