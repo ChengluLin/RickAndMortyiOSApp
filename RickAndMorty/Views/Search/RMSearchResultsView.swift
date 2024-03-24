@@ -194,9 +194,23 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
         return CGSize(width: width, height: 100)
     }
 }
+//MARK: - ScrollViewDelegate
 
 extension RMSearchResultsView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if locationCellViewModels.isEmpty {
+            handleLoactionPageination(scrollView: scrollView)
+        } else {
+            // CollectionView
+            handleCharacterOrEpisodePagination(scrollView: scrollView)
+        }
+    }
+    
+    private func handleCharacterOrEpisodePagination(scrollView: UIScrollView) {
+        
+    }
+    
+    private func handleLoactionPageination(scrollView: UIScrollView) {
         guard let viewModel = viewModel,
               !locationCellViewModels.isEmpty,
               viewModel.shouldShowLoadMoreIndicator,
