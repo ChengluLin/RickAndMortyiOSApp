@@ -71,7 +71,6 @@ final class RMCharacterListView: UIView {
     }
     
     private func setUpcollectionView() {
-//        collectionView.delegate =
         collectionView.dataSource = viewModel
         collectionView.delegate = viewModel
     }
