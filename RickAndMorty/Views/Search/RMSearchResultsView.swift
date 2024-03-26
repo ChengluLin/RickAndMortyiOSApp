@@ -224,7 +224,6 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
             height: 100
         )
     }
-    
 }
 //MARK: - ScrollViewDelegate
 
@@ -253,11 +252,24 @@ extension RMSearchResultsView: UIScrollViewDelegate {
             
             if offset >= ( totalContentHeight - totaScrollViewFixedHeight - 120) {
                 viewModel.fetchAdditionalResults { [weak self] newResults in
-                    // Refresh collectionView
-                    self?.tableView.tableFooterView = nil
-                    self?.collectionViewCellViewModels = newResults
-                    print("Should add more result cell for search results", newResults.count)
-                    
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        strongSelf.tableView.tableFooterView = nil
+                        
+                        let originalCount = strongSelf.collectionViewCellViewModels.count
+                        let newConunt = newResults.count
+                        let total = originalCount + newConunt
+                        let startingIndex = total - newConunt
+                        let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newConunt)).compactMap({
+                            return IndexPath(row: $0, section: 0)
+                        })
+                        print("Should add more result cell for search results", newResults.count)
+                        strongSelf.collectionViewCellViewModels = newResults
+                        strongSelf.collectionView.insertItems(at: indexPathsToAdd)
+                    }
+ 
                 }
             }
             timer.invalidate()
