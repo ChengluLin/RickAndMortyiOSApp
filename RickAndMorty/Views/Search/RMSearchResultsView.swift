@@ -259,17 +259,16 @@ extension RMSearchResultsView: UIScrollViewDelegate {
                         strongSelf.tableView.tableFooterView = nil
                         
                         let originalCount = strongSelf.collectionViewCellViewModels.count
-                        let newConunt = newResults.count
-                        let total = originalCount + newConunt
-                        let startingIndex = total - newConunt
-                        let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newConunt)).compactMap({
+                        let newCount = (newResults.count - originalCount)
+                        let total = originalCount + newCount
+                        let startingIndex = total - newCount
+                        let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex + newCount)).compactMap({
                             return IndexPath(row: $0, section: 0)
                         })
                         print("Should add more result cell for search results", newResults.count)
                         strongSelf.collectionViewCellViewModels = newResults
                         strongSelf.collectionView.insertItems(at: indexPathsToAdd)
                     }
- 
                 }
             }
             timer.invalidate()

@@ -122,7 +122,7 @@ final class RMSearchResultViewModel {
                     let additionalLocations = moreResults.compactMap({
                         return RMCharacterCollectionViewCellViewModel(characterName: $0.name,
                                                                       characterStatus: $0.status,
-                                                                      characterImageUrl: URL(string: $0.url))
+                                                                      characterImageUrl: URL(string: $0.image))
                     })
                     var newResults: [RMCharacterCollectionViewCellViewModel] = []
                     newResults = existingResults + additionalLocations
