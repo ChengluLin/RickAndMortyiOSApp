@@ -30,6 +30,7 @@ final class RMLocationDetailViewController: UIViewController, RMLocationDetailVi
         view.addSubview(detailView)
         addConstraints()
         title = "Location"
+        view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
         detailView.delegate = self
         viewModel.delegate = self
