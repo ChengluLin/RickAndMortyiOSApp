@@ -9,6 +9,9 @@ import UIKit
 
 protocol RMSearchResultsViewDelegate: AnyObject {
     func reSearchResultsView(_ resultsView: RMSearchResultsView, didTapLocationAt index: Int)
+    func reSearchResultsView(_ resultsView: RMSearchResultsView, didTapCharacterAt index: Int)
+    func reSearchResultsView(_ resultsView: RMSearchResultsView, didTapEpisodeAt index: Int)
+
 }
 
 /// Shows search results UI (Table or Collection an need)
@@ -178,8 +181,20 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        guard let viewModel = viewModel else {
+            return
+        }
         
-        // Hand cell tap
+        switch viewModel.results {
+        case .characters:
+            delegate?.reSearchResultsView(self, didTapCharacterAt: indexPath.row)
+        case .episodes:
+            delegate?.reSearchResultsView(self, didTapEpisodeAt: indexPath.row)
+        case .locations(let viewModels):
+            break
+        }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
