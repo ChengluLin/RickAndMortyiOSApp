@@ -190,7 +190,7 @@ extension RMSearchResultsView: UICollectionViewDelegate, UICollectionViewDataSou
             delegate?.reSearchResultsView(self, didTapCharacterAt: indexPath.row)
         case .episodes:
             delegate?.reSearchResultsView(self, didTapEpisodeAt: indexPath.row)
-        case .locations(let viewModels):
+        case .locations:
             break
         }
         
@@ -304,9 +304,9 @@ extension RMSearchResultsView: UIScrollViewDelegate {
             let totaScrollViewFixedHeight = scrollView.frame.size.height
             
             if offset >= ( totalContentHeight - totaScrollViewFixedHeight - 120) {
-                DispatchQueue.main.async {
+//                DispatchQueue.main.async {
                     self?.showTableLoadingIndicator()
-                }
+//                }
                 viewModel.fetchAdditionalLocations { [weak self] newResults in
                     // Refresh table
                     self?.tableView.tableFooterView = nil
