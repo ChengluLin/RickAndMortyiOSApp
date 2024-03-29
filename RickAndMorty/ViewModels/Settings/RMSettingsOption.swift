@@ -10,10 +10,8 @@ import UIKit
 enum RMSettingsOption: CaseIterable {
     case rateApp
     case contactUs
-    case terms
     case privacy
     case apiReference
-    case viewSeries
     case viewCode
     
     var targetUrl: URL? {
@@ -21,15 +19,11 @@ enum RMSettingsOption: CaseIterable {
         case .rateApp:
             return nil
         case .contactUs:
-            return URL(string: "https://iosacademy.io")
-        case .terms:
-            return URL(string: "https://iosacadey.io/terms")
+            return URL(string: "https://github.com/ChengluLin")
         case .privacy:
-            return URL(string: "https://iosacadey.io/privacy")
+            return URL(string: "https://www.privacypolicies.com/live/02bccffc-75ff-43a7-a098-4c4a6e57cdc9")
         case .apiReference:
-            return URL(string: "https://rickandmortyapi.com/")
-        case .viewSeries:
-            return URL(string: "https://rickandmortyapi.com/")
+            return URL(string: "https://rickandmortyapi.com/documentation")
         case .viewCode:
             return URL(string: "https://github.com/ChengluLin/RickAndMortyiOSApp")
 
@@ -42,14 +36,10 @@ enum RMSettingsOption: CaseIterable {
             return "Rate App"
         case .contactUs:
             return "Contact Us"
-        case .terms:
-            return "Terms of Service"
         case .privacy:
             return "Privacy Policy"
         case .apiReference:
             return "API Reference"
-        case .viewSeries:
-            return "View Video Series"
         case .viewCode:
             return "View App Code"
             
@@ -62,14 +52,10 @@ enum RMSettingsOption: CaseIterable {
             return .systemBlue
         case .contactUs:
             return .systemGreen
-        case .terms:
-            return .systemRed
         case .privacy:
             return .systemYellow
         case .apiReference:
             return .systemOrange
-        case .viewSeries:
-            return .systemPurple
         case .viewCode:
             return .systemPink
         }
@@ -81,14 +67,10 @@ enum RMSettingsOption: CaseIterable {
             return UIImage(systemName: "star.fill")
         case .contactUs:
             return UIImage(systemName: "paperplane")
-        case .terms:
-            return UIImage(systemName: "doc")
         case .privacy:
             return UIImage(systemName: "lock")
         case .apiReference:
             return UIImage(systemName: "list.clipboard")
-        case .viewSeries:
-            return UIImage(systemName: "tv.fill")
         case .viewCode:
             return UIImage(systemName: "hammer.fill")
         }
